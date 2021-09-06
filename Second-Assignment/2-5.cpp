@@ -58,7 +58,35 @@ void show()
         }
     }
 }
+void nFromEnd(int n)
+{
+    int l=0,i;
+    node *temp;
+    temp = head;
+    while(temp!=NULL)
+    {
+        temp = temp->link;
+        l++;
+    }
 
+    if(l>=n)
+    {
+        int k = l-n;    //because n from last represents length-n from front
+        int count = 0;
+        temp = head;
+        while(count<k)
+        {
+            count++;
+            temp=temp->link;
+        }
+        cout<<"\n"<<n<<"th node from last in the list is : "<<temp->data;
+        //Assuming counting (1) starts from last element itself
+    }
+    else{
+        cout<<"\nList not long enough\n";
+        return;
+    }
+}
 int main()
 {
     int i,n,d;
@@ -75,6 +103,9 @@ int main()
 
     cout<<"\nThe Elements are : \n";
     show();
+    cout<<"\nEnter the value of n : ";
+    cin>>n;
+    nFromEnd(n);
 
 
     return 0;
