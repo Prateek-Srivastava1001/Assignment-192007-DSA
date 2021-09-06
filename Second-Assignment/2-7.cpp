@@ -12,7 +12,7 @@ public:
         data = 0;
         link = NULL;
     }
-}*h1, *h2;
+}*head,*h1,*h2;
 
 node * create(int data)
 {
@@ -22,6 +22,24 @@ node * create(int data)
     return temp;
 }
 
+void insertEnd(node *block)
+{
+    if(head == NULL)
+    {
+        head = block;
+    }
+    else{
+        node *temp;
+        temp = head;
+        while(temp->link!=NULL)
+        {
+            temp = temp->link;
+        }
+        temp->link = block;
+
+    }
+
+}
 void insertEnd1(node *block)
 {
     if(h1 == NULL)
@@ -61,16 +79,15 @@ void insertEnd2(node *block)
     }
 
 }
-
-void show(node *head)
+void show(node *h)
 {
-    if(head==NULL)
+    if(h==NULL)
     {
         cout<<"\nList Empty\n";
     }
     else{
         node *temp;
-        temp = head;
+        temp = h;
         cout<<"\nHead";
         while(temp!=NULL)
         {
@@ -80,27 +97,68 @@ void show(node *head)
     }
 }
 
-void printCommon()
+void merge()
 {
-    node *tem1, *tem2;
+    node *tem1, *tem2, *temp;
     tem1 = h1;
     tem2 = h2;
-    cout<<"\nCommon elements are : \n";
+
     while(tem1!=NULL && tem2!=NULL)
     {
-        if(tem1->data==tem2->data)
+        if(tem1->data == tem2->data)
         {
-            cout<<tem1->data<<" ";
+            if(head==NULL)
+            {
+                head = tem1;
+                temp = head;
+            }
+            else{
+                temp->link = tem1;
+                temp = temp->link;
+            }
             tem1 = tem1->link;
             tem2 = tem2->link;
+
         }
         else if(tem1->data > tem2->data)
         {
+            if(head==NULL)
+            {
+                head = tem2;
+                temp = head;
+            }
+            else{
+                temp->link = tem2;
+                temp = temp->link;
+            }
             tem2 = tem2->link;
         }
         else{
+            if(head==NULL)
+            {
+                head = tem1;
+                temp = head;
+            }
+            else{
+                temp->link = tem1;
+                temp = temp->link;
+            }
             tem1 = tem1->link;
         }
+
+    }
+
+    while(tem1!=NULL)
+    {
+        temp->link = tem1;
+        temp = temp->link;
+        tem1 = tem1->link;
+    }
+    while(tem2!=NULL)
+    {
+        temp->link = tem2;
+        temp = temp->link;
+        tem2 = tem2->link;
     }
 
 }
@@ -134,8 +192,9 @@ int main()
 
     cout<<"\nThe Elements are : \n";
     show(h2);
-
-    printCommon();
+    cout<<"\nAfter merging...\n";
+    merge();
+    show(head);
 
     return 0;
 }
