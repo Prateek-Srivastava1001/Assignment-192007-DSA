@@ -42,6 +42,41 @@ void insertEnd(node *block)
     }
 
 }
+void insertBeg(node *block)
+{
+    insertEnd();
+    head = block;
+    cout<<"\nSuccessfuly inserted at beginning\n";
+}
+void insertBet(node *block, int k)
+{
+    int i;
+    if(head == NULL)
+    {
+        head = block;
+        head->link = head;
+    }
+    else if(k==1)
+        insertBeg(block);
+    else{
+        node *temp;
+        temp = head;
+        for(i=1;i<k-1;i++)
+        {
+            if(temp->link==head)
+            {
+                temp->link = block;
+                cout<<"\nList not long enough, Hence inserting at end";
+                return;
+            }
+            temp = temp->link;
+        }
+        block->link = temp->link;
+        temp->link = block;
+    }
+
+    cout<<"\nInserted successfuly at position : "<<k<<"\n";
+}
 
 void show()
 {
@@ -53,9 +88,7 @@ void show()
         node *temp;
         temp = head;
         cout<<"\nHead";
-        cout<<" --> "<<temp->data;
-            temp = temp->link;
-        while(temp->link!=head)
+        while(temp!=head)
         {
             cout<<" --> "<<temp->data;
             temp = temp->link;
